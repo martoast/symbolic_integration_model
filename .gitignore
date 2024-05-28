@@ -1,0 +1,4 @@
+.env
+transformers_cache
+symbolic_integration_model
+checkpoints
