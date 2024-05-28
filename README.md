@@ -47,3 +47,8 @@ You can install the required libraries using pip:
 
 ```bash
 pip install numpy pandas matplotlib sympy torch transformers
+```
+
+```bash
+TRANSFORMERS_CACHE=/path/to/transformers_cache python3 main.py
+```
