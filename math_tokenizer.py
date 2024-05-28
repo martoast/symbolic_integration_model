@@ -1,9 +1,10 @@
 # math_tokenizer.py
+import pandas as pd
 from tokenizers import Tokenizer, models, normalizers, pre_tokenizers, decoders, trainers
 from tokenizers.processors import TemplateProcessing
 
 # Function to create and train the tokenizer
-def create_and_train_tokenizer():
+def create_and_train_tokenizer(data_file):
     tokenizer = Tokenizer(models.WordPiece())
     tokenizer.normalizer = normalizers.BertNormalizer()
     tokenizer.pre_tokenizer = pre_tokenizers.BertPreTokenizer()
@@ -17,14 +18,9 @@ def create_and_train_tokenizer():
     )
     tokenizer.decoder = decoders.WordPiece()
 
-    training_data = [
-        "2 * x",
-        "sin(x)",
-        "cos(x)",
-        "x ** 2 + 3 * x + 2",
-        "exp(x) - log(x)",
-        "x * tan(x)"
-    ]
+    # Load training data from CSV
+    df = pd.read_csv(data_file)
+    training_data = df['Derivative'].tolist() + df['Original_Function'].tolist()
 
     trainer = trainers.WordPieceTrainer(
         vocab_size=100,
@@ -48,7 +44,7 @@ def detokenize(token_ids):
     return tokenizer.decode(token_ids)
 
 if __name__ == "__main__":
-    create_and_train_tokenizer()  # Create and train the tokenizer
+    create_and_train_tokenizer('training_data.csv')  # Create and train the tokenizer with training data
 
     test_expression = "2 * x + sin(x)"
     token_ids, tokens = tokenize(test_expression)

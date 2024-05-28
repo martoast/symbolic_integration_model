@@ -13,7 +13,7 @@ This project aims to train a neural network to predict the original mathematical
 
 2. **Tokenizer Creation**:
    - A custom tokenizer is created to handle mathematical expressions.
-   - The tokenizer is trained on sample mathematical functions and saved for future use.
+   - The tokenizer is trained on the generated training data and saved for future use.
 
 3. **Model Training**:
    - An encoder-decoder model is trained on the generated data using the transformers library.
